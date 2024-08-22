@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<word-to-html-settings>
+<enable-XHTML enable="false"/>
+<viewport content=""/>
+<enable-endl enable="false"/>
+<enable-empty-paragraph enable="false"/>
+<enable-non-reference-id enable="false"/>
+<enable-image-width enable="false"/>
+<enable-heading-strong enable="true"/>
+<enable-embed-image enable="false"/>
+<enable-mathml enable="false"/>
+<xml-mathml enable="false"/>
+<xml-omath enable="false"/>
+<through-image enable="false"/>
+<enable-pstyle enable="false"/>
+<enable-citation enable="false"/>
+<text-color enable="false"/>
+<output-br enable="false"/>
+<style-tag enable="true"/>
+<space-indent enable="false"/>
+<fil-images enable="false"/>
+<italic out="n"/>
+<underline out="n"/>
+<linethrough out="n"/>
+<split val="0"/>
+<tocout enable="false"/>
+<lang val=""/>
+</word-to-html-settings>

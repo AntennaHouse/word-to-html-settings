@@ -1,0 +1,179 @@
+# Schema for Antenna House 'HTML on Word' Setting File.
+#
+# Copyright 2024 Antenna House, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+default namespace = ""
+namespace a = "http://relaxng.org/ns/compatibility/annotations/1.0"
+
+ah.boolean =
+   'false' | 'true'
+
+attribute.enable =
+   attribute enable { ah.boolean }
+
+attribute.out =
+   attribute out { 'n' | 't' | 's' }
+
+attribute.src =
+   ## Location of external file
+   attribute src { xsd:anyURI }
+
+start =
+   ## Root element of an HTML on Word settings file
+   element word-to-html-settings {
+      ## Whether to output HTML grammar tags. Corresponds to '-xhtml'.
+      element enable-XHTML {
+         ## If 'false', output HTML tags; if 'true', output XHTML tags
+         attribute enable { ah.boolean }
+      },
+      ## Content of '<meta name="viewport">'. Corresponds to '-viewport'.
+      element viewport {
+         ## If not empty, text to use as content of 'content' attribute
+         attribute content { text }
+      },
+      ## Whether to output a line break at the end of a block tag. Corresponds to '-endl'.
+      element enable-endl {
+         ## If 'false', do not output a line break; if 'true', output a line break
+         attribute enable { ah.boolean }
+      },
+      ## Whether to output '<p></p>' for blank lines in Word. Corresponds to '-emptyP'.
+      element enable-empty-paragraph {
+         ## If 'false', ignore blank lines; if 'true', output '<p></p>'
+         attribute enable { ah.boolean }
+      },
+      ## Whether to output IDs for IDs in Word that are not internally referenced. Corresponds to '-nonrefid'.
+      element enable-non-reference-id {
+         ## If 'false', output only referenced IDs; if 'true', output all IDs
+         attribute enable { ah.boolean }
+      },
+      ## Whether to output the width of an image in a 'style' attribute. Corresponds to '-imgwidth'.
+      element enable-image-width {
+         ## If 'false', to not output the width; if 'true', output the width
+         attribute enable { ah.boolean }
+      },
+      ## Whether to output ignore emphasis specified in the heading style. Corresponds to '-hstrong'. 
+      element enable-heading-strong {
+         ## If 'false', do not ignore emphasis; if 'true', ignore emphasis
+         attribute enable { ah.boolean }
+      },
+      ## Whether to embed images in the HTML using a 'data:' URL. Corresponds to '-embedimg'. 
+      element enable-embed-image {
+         ## If 'false', images are output to the image folder; if 'true', images are embedded
+         attribute enable { ah.boolean }
+      },
+      ## Whether to output formulas as <img> referencing MathML files. Corresponds to '-math'. 
+      element enable-mathml {
+         ## If 'false', do not output formulas as <img> referencing MathML files; if 'true', output <img>
+         attribute enable { ah.boolean }
+      },
+      ## Whether to output formulas as MathML. Corresponds to '-xmath'. 
+      element xml-mathml {
+         ## If 'false', do not output formulas as MathML; if 'true', output formulas as MathML
+         attribute enable { ah.boolean }
+      },
+      ## Whether to output formulas in Office Math format. Corresponds to '-omath'. 
+      element xml-omath {
+         ## If 'false', do not output formulas in Office Math format; if 'true', output formulas in Office Math format
+         attribute enable { ah.boolean }
+      },
+      ## Whether to output images in their original format. Corresponds to '-throughimg'. 
+      element through-image {
+         ## If 'false', convert images; if 'true', output images in their original format
+         attribute enable { ah.boolean }
+      },
+      ## Whether to output the Word paragraph style name as the value of the 'class' attribute. Corresponds to '-pstyle'. 
+      element enable-pstyle {
+         ## If 'false', do not output the Word paragraph style name; if 'true', output the Word paragraph style name
+         attribute enable { ah.boolean }
+      },
+      ## Whether to output the value of a Citation field as the 'href' attribute of <a>. Corresponds to '-citation'. 
+      element enable-citation {
+         ## If 'false', do not output the value of a Citation field; if 'true', output the value of a Citation field
+         attribute enable { ah.boolean }
+      },
+      ## Whether to output the color of text as 'style="color: color;"'. Corresponds to '-textcolor'. 
+      element text-color {
+         ## If 'false', do not output the text color; if 'true', output the text color in the 'style' attribute
+         attribute enable { ah.boolean }
+      },
+      ## Whether to output <br> at the end of each paragraph. Corresponds to '-outputbr'. 
+      element output-br {
+         ## If 'false', enclose each paragraph in <p>; if 'true', output <br> after each paragraph
+         attribute enable { ah.boolean }
+      },
+      ## Whether to output <style> in <head>. Corresponds to '-defstyle'. 
+      element style-tag {
+         ## If 'false', do not output <style>; if 'true', output <style>
+         attribute enable { ah.boolean }
+      },
+      ## Whether to convert indents at the beginning of a paragraph into a single fullwidth space. Corresponds to '-spaceindent'. 
+      element space-indent {
+         ## If 'false', do not convert indents; if 'true', convert indents
+         attribute enable { ah.boolean }
+      },
+      ## Whether to output images in one folder or one folder per HTML document. Corresponds to '-fileimages'. 
+      element fil-images {
+         ## If 'false', output images in 'images'; if 'true', output images in 'destination_file_name.images'
+         attribute enable { ah.boolean }
+      },
+      ## What to output for italic text. Corresponds to '-italic'. 
+      element italic {
+         ## When 'n', ignore italics; when 't', output as <i>; when 's', output as '<span style="font-style: italic;">'
+         attribute out { 'n' | 't' | 's' }
+      },
+      ## What to output for underlined text. Corresponds to '-underline'. 
+      element underline {
+         ## When 'n', ignore underlines; when 't', output as <u>; when 's', output as '<span style="text-decoration-line: underline;">'
+         attribute out { 'n' | 't' | 's' }
+      },
+      ## What to output for struck-through text. Corresponds to '-linethrough'. 
+      element linethrough {
+         ## When 'n', ignore strikethroughs; when 't', output as <del>; when 's', output as '<span style="text-decoration-line: line-through;">'
+         attribute out { 'n' | 't' | 's' }
+      },
+      ## Character encoding, other than UTF-8, for the ouput. Corresponds to '-encoding'. 
+      element encoding {
+         ## Encoding to use; e.g., 'Shift_JIS' or 'UTF-16'
+         attribute encoding { text }
+      }?,
+      ## CSS file to use. Corresponds to '-css'. 
+      element link-css {
+         attribute.src
+      }?,
+      ## JavaScript file to use. Corresponds to '-js'. 
+      element link-js {
+         attribute.src
+      }?,
+      ## Whether to split the HTML based on the Word outline level. Corresponds to '-split'. 
+      element split {
+         ## When '0', do not split; when '1', '2', or '3', split at that outline level
+         attribute val { '0' | '1' | '2' | '3' }
+      },
+      ## Whether to output the table of contents for split HTML files as a separate 'inc-toc.html' file. Corresponds to '-tocout'. 
+      element tocout {
+         ## If 'false', do not generate a separate file; if 'true', generate 'inc-toc.html'
+         attribute enable { ah.boolean }
+      },
+      ## Whether to output links to previous and next pages and the language to use for the link text. Corresponds to '-pagenavi'. 
+      element pagenavi {
+         ## English is used for any value other than 'ja' 
+         attribute pagenavi { text }
+      }?,
+      ## Value of the 'lang' attribute of <html>. Corresponds to '-lang'. 
+      element lang {
+         ## Language code to use; e.g., 'en' for English or 'ja' for Japanese. Otherwise, the language is inferred from the Word document
+         attribute val { text }
+      }
+   }

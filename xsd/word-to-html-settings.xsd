@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Schema for Antenna House 'HTML on Word' Setting File.
+  
+  Copyright 2024 Antenna House, Inc.
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+      http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:simpleType name="ah.boolean">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="false"/>
+      <xs:enumeration value="true"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:attributeGroup name="attribute.enable">
+    <xs:attribute name="enable" use="required" type="ah.boolean"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="attribute.out">
+    <xs:attribute name="out" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="n"/>
+          <xs:enumeration value="t"/>
+          <xs:enumeration value="s"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="attribute.src">
+    <xs:attribute name="src" use="required" type="xs:anyURI">
+      <xs:annotation>
+        <xs:documentation>Location of external file</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:element name="word-to-html-settings">
+    <xs:annotation>
+      <xs:documentation>Root element of an HTML on Word settings file</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="enable-XHTML"/>
+        <xs:element ref="viewport"/>
+        <xs:element ref="enable-endl"/>
+        <xs:element ref="enable-empty-paragraph"/>
+        <xs:element ref="enable-non-reference-id"/>
+        <xs:element ref="enable-image-width"/>
+        <xs:element ref="enable-heading-strong"/>
+        <xs:element ref="enable-embed-image"/>
+        <xs:element ref="enable-mathml"/>
+        <xs:element ref="xml-mathml"/>
+        <xs:element ref="xml-omath"/>
+        <xs:element ref="through-image"/>
+        <xs:element ref="enable-pstyle"/>
+        <xs:element ref="enable-citation"/>
+        <xs:element ref="text-color"/>
+        <xs:element ref="output-br"/>
+        <xs:element ref="style-tag"/>
+        <xs:element ref="space-indent"/>
+        <xs:element ref="fil-images"/>
+        <xs:element ref="italic"/>
+        <xs:element ref="underline"/>
+        <xs:element ref="linethrough"/>
+        <xs:element minOccurs="0" ref="encoding"/>
+        <xs:element minOccurs="0" ref="link-css"/>
+        <xs:element minOccurs="0" ref="link-js"/>
+        <xs:element ref="split"/>
+        <xs:element ref="tocout"/>
+        <xs:element minOccurs="0" ref="pagenavi"/>
+        <xs:element ref="lang"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="enable-XHTML">
+    <xs:annotation>
+      <xs:documentation>Whether to output HTML grammar tags. Corresponds to '-xhtml'.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="enable" use="required" type="ah.boolean">
+        <xs:annotation>
+          <xs:documentation>If 'false', output HTML tags; if 'true', output XHTML tags</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="viewport">
+    <xs:annotation>
+      <xs:documentation>Content of '&lt;meta name="viewport"&gt;'. Corresponds to '-viewport'.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="content" use="required">
+        <xs:annotation>
+          <xs:documentation>If not empty, text to use as content of 'content' attribute</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="enable-endl">
+    <xs:annotation>
+      <xs:documentation>Whether to output a line break at the end of a block tag. Corresponds to '-endl'.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="enable" use="required" type="ah.boolean">
+        <xs:annotation>
+          <xs:documentation>If 'false', do not output a line break; if 'true', output a line break</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="enable-empty-paragraph">
+    <xs:annotation>
+      <xs:documentation>Whether to output '&lt;p&gt;&lt;/p&gt;' for blank lines in Word. Corresponds to '-emptyP'.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="enable" use="required" type="ah.boolean">
+        <xs:annotation>
+          <xs:documentation>If 'false', ignore blank lines; if 'true', output '&lt;p&gt;&lt;/p&gt;'</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="enable-non-reference-id">
+    <xs:annotation>
+      <xs:documentation>Whether to output IDs for IDs in Word that are not internally referenced. Corresponds to '-nonrefid'.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="enable" use="required" type="ah.boolean">
+        <xs:annotation>
+          <xs:documentation>If 'false', output only referenced IDs; if 'true', output all IDs</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="enable-image-width">
+    <xs:annotation>
+      <xs:documentation>Whether to output the width of an image in a 'style' attribute. Corresponds to '-imgwidth'.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="enable" use="required" type="ah.boolean">
+        <xs:annotation>
+          <xs:documentation>If 'false', to not output the width; if 'true', output the width</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="enable-heading-strong">
+    <xs:annotation>
+      <xs:documentation>Whether to output ignore emphasis specified in the heading style. Corresponds to '-hstrong'. </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="enable" use="required" type="ah.boolean">
+        <xs:annotation>
+          <xs:documentation>If 'false', do not ignore emphasis; if 'true', ignore emphasis</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="enable-embed-image">
+    <xs:annotation>
+      <xs:documentation>Whether to embed images in the HTML using a 'data:' URL. Corresponds to '-embedimg'. </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="enable" use="required" type="ah.boolean">
+        <xs:annotation>
+          <xs:documentation>If 'false', images are output to the image folder; if 'true', images are embedded</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="enable-mathml">
+    <xs:annotation>
+      <xs:documentation>Whether to output formulas as &lt;img&gt; referencing MathML files. Corresponds to '-math'. </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="enable" use="required" type="ah.boolean">
+        <xs:annotation>
+          <xs:documentation>If 'false', do not output formulas as &lt;img&gt; referencing MathML files; if 'true', output &lt;img&gt;</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="xml-mathml">
+    <xs:annotation>
+      <xs:documentation>Whether to output formulas as MathML. Corresponds to '-xmath'. </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="enable" use="required" type="ah.boolean">
+        <xs:annotation>
+          <xs:documentation>If 'false', do not output formulas as MathML; if 'true', output formulas as MathML</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="xml-omath">
+    <xs:annotation>
+      <xs:documentation>Whether to output formulas in Office Math format. Corresponds to '-omath'. </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="enable" use="required" type="ah.boolean">
+        <xs:annotation>
+          <xs:documentation>If 'false', do not output formulas in Office Math format; if 'true', output formulas in Office Math format</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="through-image">
+    <xs:annotation>
+      <xs:documentation>Whether to output images in their original format. Corresponds to '-throughimg'. </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="enable" use="required" type="ah.boolean">
+        <xs:annotation>
+          <xs:documentation>If 'false', convert images; if 'true', output images in their original format</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="enable-pstyle">
+    <xs:annotation>
+      <xs:documentation>Whether to output the Word paragraph style name as the value of the 'class' attribute. Corresponds to '-pstyle'. </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="enable" use="required" type="ah.boolean">
+        <xs:annotation>
+          <xs:documentation>If 'false', do not output the Word paragraph style name; if 'true', output the Word paragraph style name</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="enable-citation">
+    <xs:annotation>
+      <xs:documentation>Whether to output the value of a Citation field as the 'href' attribute of &lt;a&gt;. Corresponds to '-citation'. </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="enable" use="required" type="ah.boolean">
+        <xs:annotation>
+          <xs:documentation>If 'false', do not output the value of a Citation field; if 'true', output the value of a Citation field</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="text-color">
+    <xs:annotation>
+      <xs:documentation>Whether to output the color of text as 'style="color: color;"'. Corresponds to '-textcolor'. </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="enable" use="required" type="ah.boolean">
+        <xs:annotation>
+          <xs:documentation>If 'false', do not output the text color; if 'true', output the text color in the 'style' attribute</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="output-br">
+    <xs:annotation>
+      <xs:documentation>Whether to output &lt;br&gt; at the end of each paragraph. Corresponds to '-outputbr'. </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="enable" use="required" type="ah.boolean">
+        <xs:annotation>
+          <xs:documentation>If 'false', enclose each paragraph in &lt;p&gt;; if 'true', output &lt;br&gt; after each paragraph</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="style-tag">
+    <xs:annotation>
+      <xs:documentation>Whether to output &lt;style&gt; in &lt;head&gt;. Corresponds to '-defstyle'. </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="enable" use="required" type="ah.boolean">
+        <xs:annotation>
+          <xs:documentation>If 'false', do not output &lt;style&gt;; if 'true', output &lt;style&gt;</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="space-indent">
+    <xs:annotation>
+      <xs:documentation>Whether to convert indents at the beginning of a paragraph into a single fullwidth space. Corresponds to '-spaceindent'. </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="enable" use="required" type="ah.boolean">
+        <xs:annotation>
+          <xs:documentation>If 'false', do not convert indents; if 'true', convert indents</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="fil-images">
+    <xs:annotation>
+      <xs:documentation>Whether to output images in one folder or one folder per HTML document. Corresponds to '-fileimages'. </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="enable" use="required" type="ah.boolean">
+        <xs:annotation>
+          <xs:documentation>If 'false', output images in 'images'; if 'true', output images in 'destination_file_name.images'</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="italic">
+    <xs:annotation>
+      <xs:documentation>What to output for italic text. Corresponds to '-italic'. </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="out" use="required">
+        <xs:annotation>
+          <xs:documentation>When 'n', ignore italics; when 't', output as &lt;i&gt;; when 's', output as '&lt;span style="font-style: italic;"&gt;'</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="n"/>
+            <xs:enumeration value="t"/>
+            <xs:enumeration value="s"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="underline">
+    <xs:annotation>
+      <xs:documentation>What to output for underlined text. Corresponds to '-underline'. </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="out" use="required">
+        <xs:annotation>
+          <xs:documentation>When 'n', ignore underlines; when 't', output as &lt;u&gt;; when 's', output as '&lt;span style="text-decoration-line: underline;"&gt;'</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="n"/>
+            <xs:enumeration value="t"/>
+            <xs:enumeration value="s"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="linethrough">
+    <xs:annotation>
+      <xs:documentation>What to output for struck-through text. Corresponds to '-linethrough'. </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="out" use="required">
+        <xs:annotation>
+          <xs:documentation>When 'n', ignore strikethroughs; when 't', output as &lt;del&gt;; when 's', output as '&lt;span style="text-decoration-line: line-through;"&gt;'</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="n"/>
+            <xs:enumeration value="t"/>
+            <xs:enumeration value="s"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="encoding">
+    <xs:annotation>
+      <xs:documentation>Character encoding, other than UTF-8, for the ouput. Corresponds to '-encoding'. </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="encoding" use="required">
+        <xs:annotation>
+          <xs:documentation>Encoding to use; e.g., 'Shift_JIS' or 'UTF-16'</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="link-css">
+    <xs:annotation>
+      <xs:documentation>CSS file to use. Corresponds to '-css'. </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attributeGroup ref="attribute.src"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="link-js">
+    <xs:annotation>
+      <xs:documentation>JavaScript file to use. Corresponds to '-js'. </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attributeGroup ref="attribute.src"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="split">
+    <xs:annotation>
+      <xs:documentation>Whether to split the HTML based on the Word outline level. Corresponds to '-split'. </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="val" use="required">
+        <xs:annotation>
+          <xs:documentation>When '0', do not split; when '1', '2', or '3', split at that outline level</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="0"/>
+            <xs:enumeration value="1"/>
+            <xs:enumeration value="2"/>
+            <xs:enumeration value="3"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="tocout">
+    <xs:annotation>
+      <xs:documentation>Whether to output the table of contents for split HTML files as a separate 'inc-toc.html' file. Corresponds to '-tocout'. </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="enable" use="required" type="ah.boolean">
+        <xs:annotation>
+          <xs:documentation>If 'false', do not generate a separate file; if 'true', generate 'inc-toc.html'</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="pagenavi">
+    <xs:annotation>
+      <xs:documentation>Whether to output links to previous and next pages and the language to use for the link text. Corresponds to '-pagenavi'. </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="pagenavi" use="required">
+        <xs:annotation>
+          <xs:documentation>English is used for any value other than 'ja' </xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="lang">
+    <xs:annotation>
+      <xs:documentation>Value of the 'lang' attribute of &lt;html&gt;. Corresponds to '-lang'. </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="val" use="required">
+        <xs:annotation>
+          <xs:documentation>Language code to use; e.g., 'en' for English or 'ja' for Japanese. Otherwise, the language is inferred from the Word document</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

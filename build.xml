@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="word-to-html-settings" basedir="."
+	 default="schema.translate"
+	 xmlns:if="ant:if"
+	 xmlns:unless="ant:unless">
+<description>Antenna House 'HTML on Word' Setting File.</description>
+<!--
+     Copyright 2016-2024 Antenna House, Inc.
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<!--
+BEFORE making a release on GitHub:
+ - Commit all hand-modified files
+ - Make sure that ${version} in build.properties is correct
+ - Run the 'release' target with '-Dforce=yes'
+ - Commit build.properties and the generated files with a
+   'Releasing word-to-html-settings x.y.z.' commit message
+ - Push the commits to GitHub.
+
+AFTER making a release on GitHub:
+ - Increment ${version} in build.properties so it's not possible
+   to accidentally overwrite a release's Zip file with different
+   versions of files.
+-->
+
+<!-- PROPERTIES -->
+<dirname property="word-to-html-settings.basedir" file="${ant.file.word-to-html-settings}"/>
+
+<pathconvert property="word-to-html-settings.basedir.converted" dirsep="/">
+  <path location="${word-to-html-settings.basedir}" />
+  <!-- Ant under cygwin uses a lowercase drive letter, which some Java
+       programs don't recognise as a drive letter, so translate. -->
+  <map from="c:" to="/C:"/>
+  <map from="d:" to="/D:"/>
+  <map from="e:" to="/E:"/>
+</pathconvert>
+
+<pathconvert property="basedir.converted" dirsep="/">
+  <path location="${basedir}" />
+  <!-- Ant under cygwin uses a lowercase drive letter, which some Java
+       programs don't recognise as a drive letter, so translate. -->
+  <map from="c:" to="/C:"/>
+  <map from="d:" to="/D:"/>
+  <map from="e:" to="/E:"/>
+</pathconvert>
+
+<!-- Local file of properties determining or describing local
+     configuration. -->
+<property name="build.local.properties"
+	  location="${basedir.converted}/build.local.properties"/>
+<property file="${build.local.properties}"/>
+
+<!-- XML file of properties determining or describing local
+     configuration. -->
+<property name="build.properties.xml"
+	  location="${fochek.basedir.converted}/properties.xml"/>
+<property file="${build.properties.xml}"/>
+
+<!-- File of properties determining or describing local
+     configuration. -->
+<property name="build.properties"
+	  location="${word-to-html-settings.basedir.converted}/build.properties"/>
+<property file="${build.properties}"/>
+
+<!-- Where to find RNC schema files. -->
+<property name="rnc.dir" value="${word-to-html-settings.basedir.converted}/rnc" />
+<!-- Where to find RNG schema files. -->
+<property name="rng.dir" value="${word-to-html-settings.basedir.converted}/rng" />
+<!-- Where to find XSD schema files. -->
+<property name="xsd.dir" value="${word-to-html-settings.basedir.converted}/xsd" />
+<!-- Where to find DTD schema files. -->
+<property name="dtd.dir" value="${word-to-html-settings.basedir.converted}/dtd" />
+<!-- Basename of main (outermost) schema file. -->
+<property name="schema.basename" value="word-to-html-settings" />
+
+<tstamp>
+  <format property="timestamp" pattern="yyyy-MM-dd"/>
+  <format property="year" pattern="yyyy" />
+</tstamp>
+
+<!-- trang.jar location depends on if run from oXygen or on OS. -->
+<condition property="trang.jar" value="${ant.home}/../../lib/trang.jar">
+  <contains string="${ant.home}" substring="oxygen" casesensitive="false" />
+</condition>
+<condition property="trang.jar" value="${trang.jar.windows}">
+  <os family="windows" />
+</condition>
+<condition property="trang.jar" value="${trang.jar.mac}">
+  <os family="mac" />
+</condition>
+<property name="trang.jar" value="${trang.jar.unix}" />
+
+<!-- TARGETS -->
+
+<target name="trang">
+  <fail message="Could not locate 'trang.jar'.">
+    <condition>
+      <not>
+	<available file="${trang.jar}" />
+      </not>
+    </condition>
+  </fail>
+</target>
+
+<target name="-rng.uptodate">
+  <uptodate property="rng.uptodate">
+    <srcfiles dir= "${rnc.dir}" includes="*.rnc"/>
+    <mapper type="glob" from="*.rnc" to="${rng.dir}/*.rng"/>
+  </uptodate>
+</target>
+
+<target name="rng" depends="trang, -rng.uptodate"
+	unless="rng.uptodate">
+  <mkdir dir="${rng.dir}" />
+  <java jar="${trang.jar}" fork="true">
+    <arg value="${rnc.dir}/${schema.basename}.rnc" />
+    <arg value="${rng.dir}/${schema.basename}.rng" />
+  </java>
+</target>
+
+<target name="-xsd.uptodate">
+  <uptodate property="xsd.uptodate">
+    <srcfiles dir= "${rnc.dir}" includes="*.rnc"/>
+    <mapper type="glob" from="*.rnc" to="${xsd.dir}/*.xsd"/>
+  </uptodate>
+</target>
+
+<target name="xsd" depends="trang, -xsd.uptodate"
+	unless="xsd.uptodate">
+  <mkdir dir="${xsd.dir}" />
+  <java jar="${trang.jar}" fork="true">
+    <arg value="${rnc.dir}/${schema.basename}.rnc" />
+    <arg value="${xsd.dir}/${schema.basename}.xsd" />
+  </java>
+</target>
+
+<target name="-dtd.uptodate">
+  <uptodate property="dtd.uptodate">
+    <srcfiles dir= "${rnc.dir}" includes="*.rnc"/>
+    <mapper type="glob" from="*.rnc" to="*.dtd"/>
+  </uptodate>
+</target>
+
+<target name="dtd" depends="trang, -dtd.uptodate"
+	unless="dtd.uptodate">
+  <mkdir dir="${dtd.dir}" />
+  <java jar="${trang.jar}" fork="true">
+    <arg value="${rnc.dir}/${schema.basename}.rnc" />
+    <arg value="${dtd.dir}/${schema.basename}.dtd" />
+  </java>
+</target>
+
+<target name="schema.translate" depends="rng, xsd, dtd" />
+
+<!-- Release targets. -->
+
+<target name="add-on.xml.uptodate">
+  <condition property="add-on.xml.uptodate">
+    <and>
+      <uptodate srcfile="${basedir.converted}/build.properties"
+		targetfile="${basedir.converted}/add-on.xml" />
+      <isfalse value="${force}" />
+    </and>
+  </condition>
+</target>
+
+<target name="add-on.xml" depends="add-on.xml.uptodate"
+	unless="add-on.xml.uptodate"
+	description="Update the version information in 'add-on.xml'.">
+  <replaceregexp file="${word-to-html-settings.basedir.converted}/add-on.xml"
+		 encoding="UTF-8">
+    <regexp pattern="&lt;xt:version>[^&lt;]+&lt;/xt:version>" />
+    <substitution expression="&lt;xt:version>${version}&lt;/xt:version>"/>
+  </replaceregexp>
+  <replaceregexp file="${word-to-html-settings.basedir.converted}/add-on.xml"
+		 encoding="UTF-8">
+    <regexp pattern='releases/download/[^"]+' />
+    <substitution
+	expression="releases/download/v${version}/${ant.project.name}-framework-${version}.zip"/>
+  </replaceregexp>
+  <replaceregexp file="${word-to-html-settings.basedir.converted}/add-on.xml"
+		 encoding="UTF-8">
+    <regexp pattern='Copyright ([0-9]+)-[0-9]+' />
+    <substitution
+	expression="Copyright \1-${year}"/>
+  </replaceregexp>
+</target>
+
+<target name="framework.zip" depends="schema.translate, add-on.xml"
+	description="Make a Zip archive of just the oXygen framework.">
+  <mkdir dir="${word-to-html-settings.basedir.converted}/releases" />
+  <zip destfile="${word-to-html-settings.basedir.converted}/releases/${ant.project.name}-framework-${version}.zip"
+       basedir="${word-to-html-settings.basedir.converted}"
+       excludes="**"
+       update="true">
+    <zipfileset dir="."
+		includes="README.md, LICENSE*, word-to-html-settings.framework"
+		prefix="${ant.project.name}" />
+    <zipfileset dir="rng"
+		includes="*.rng"
+		prefix="${ant.project.name}/rng" />
+    <zipfileset dir="template"
+		includes="*.xml, *.properties"
+		prefix="${ant.project.name}/template" />
+  </zip>
+</target>
+<target name="release" depends="add-on.xml, framework.zip" />
+
+<!-- Utility targets. -->
+
+<target name="echoproperties">
+  <echoproperties />
+</target>
+
+</project>

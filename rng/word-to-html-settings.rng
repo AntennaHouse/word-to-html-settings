@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Schema for Antenna House 'HTML on Word' Setting File.
+  
+  Copyright 2024 Antenna House, Inc.
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+      http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<grammar ns="" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <define name="ah.boolean">
+    <choice>
+      <value>false</value>
+      <value>true</value>
+    </choice>
+  </define>
+  <define name="attribute.enable">
+    <attribute name="enable">
+      <ref name="ah.boolean"/>
+    </attribute>
+  </define>
+  <define name="attribute.out">
+    <attribute name="out">
+      <choice>
+        <value>n</value>
+        <value>t</value>
+        <value>s</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="attribute.src">
+    <attribute name="src">
+      <a:documentation>Location of external file</a:documentation>
+      <data type="anyURI"/>
+    </attribute>
+  </define>
+  <start>
+    <element name="word-to-html-settings">
+      <a:documentation>Root element of an HTML on Word settings file</a:documentation>
+      <element name="enable-XHTML">
+        <a:documentation>Whether to output HTML grammar tags. Corresponds to '-xhtml'.</a:documentation>
+        <attribute name="enable">
+          <a:documentation>If 'false', output HTML tags; if 'true', output XHTML tags</a:documentation>
+          <ref name="ah.boolean"/>
+        </attribute>
+      </element>
+      <element name="viewport">
+        <a:documentation>Content of '&lt;meta name="viewport"&gt;'. Corresponds to '-viewport'.</a:documentation>
+        <attribute name="content">
+          <a:documentation>If not empty, text to use as content of 'content' attribute</a:documentation>
+        </attribute>
+      </element>
+      <element name="enable-endl">
+        <a:documentation>Whether to output a line break at the end of a block tag. Corresponds to '-endl'.</a:documentation>
+        <attribute name="enable">
+          <a:documentation>If 'false', do not output a line break; if 'true', output a line break</a:documentation>
+          <ref name="ah.boolean"/>
+        </attribute>
+      </element>
+      <element name="enable-empty-paragraph">
+        <a:documentation>Whether to output '&lt;p&gt;&lt;/p&gt;' for blank lines in Word. Corresponds to '-emptyP'.</a:documentation>
+        <attribute name="enable">
+          <a:documentation>If 'false', ignore blank lines; if 'true', output '&lt;p&gt;&lt;/p&gt;'</a:documentation>
+          <ref name="ah.boolean"/>
+        </attribute>
+      </element>
+      <element name="enable-non-reference-id">
+        <a:documentation>Whether to output IDs for IDs in Word that are not internally referenced. Corresponds to '-nonrefid'.</a:documentation>
+        <attribute name="enable">
+          <a:documentation>If 'false', output only referenced IDs; if 'true', output all IDs</a:documentation>
+          <ref name="ah.boolean"/>
+        </attribute>
+      </element>
+      <element name="enable-image-width">
+        <a:documentation>Whether to output the width of an image in a 'style' attribute. Corresponds to '-imgwidth'.</a:documentation>
+        <attribute name="enable">
+          <a:documentation>If 'false', to not output the width; if 'true', output the width</a:documentation>
+          <ref name="ah.boolean"/>
+        </attribute>
+      </element>
+      <element name="enable-heading-strong">
+        <a:documentation>Whether to output ignore emphasis specified in the heading style. Corresponds to '-hstrong'. </a:documentation>
+        <attribute name="enable">
+          <a:documentation>If 'false', do not ignore emphasis; if 'true', ignore emphasis</a:documentation>
+          <ref name="ah.boolean"/>
+        </attribute>
+      </element>
+      <element name="enable-embed-image">
+        <a:documentation>Whether to embed images in the HTML using a 'data:' URL. Corresponds to '-embedimg'. </a:documentation>
+        <attribute name="enable">
+          <a:documentation>If 'false', images are output to the image folder; if 'true', images are embedded</a:documentation>
+          <ref name="ah.boolean"/>
+        </attribute>
+      </element>
+      <element name="enable-mathml">
+        <a:documentation>Whether to output formulas as &lt;img&gt; referencing MathML files. Corresponds to '-math'. </a:documentation>
+        <attribute name="enable">
+          <a:documentation>If 'false', do not output formulas as &lt;img&gt; referencing MathML files; if 'true', output &lt;img&gt;</a:documentation>
+          <ref name="ah.boolean"/>
+        </attribute>
+      </element>
+      <element name="xml-mathml">
+        <a:documentation>Whether to output formulas as MathML. Corresponds to '-xmath'. </a:documentation>
+        <attribute name="enable">
+          <a:documentation>If 'false', do not output formulas as MathML; if 'true', output formulas as MathML</a:documentation>
+          <ref name="ah.boolean"/>
+        </attribute>
+      </element>
+      <element name="xml-omath">
+        <a:documentation>Whether to output formulas in Office Math format. Corresponds to '-omath'. </a:documentation>
+        <attribute name="enable">
+          <a:documentation>If 'false', do not output formulas in Office Math format; if 'true', output formulas in Office Math format</a:documentation>
+          <ref name="ah.boolean"/>
+        </attribute>
+      </element>
+      <element name="through-image">
+        <a:documentation>Whether to output images in their original format. Corresponds to '-throughimg'. </a:documentation>
+        <attribute name="enable">
+          <a:documentation>If 'false', convert images; if 'true', output images in their original format</a:documentation>
+          <ref name="ah.boolean"/>
+        </attribute>
+      </element>
+      <element name="enable-pstyle">
+        <a:documentation>Whether to output the Word paragraph style name as the value of the 'class' attribute. Corresponds to '-pstyle'. </a:documentation>
+        <attribute name="enable">
+          <a:documentation>If 'false', do not output the Word paragraph style name; if 'true', output the Word paragraph style name</a:documentation>
+          <ref name="ah.boolean"/>
+        </attribute>
+      </element>
+      <element name="enable-citation">
+        <a:documentation>Whether to output the value of a Citation field as the 'href' attribute of &lt;a&gt;. Corresponds to '-citation'. </a:documentation>
+        <attribute name="enable">
+          <a:documentation>If 'false', do not output the value of a Citation field; if 'true', output the value of a Citation field</a:documentation>
+          <ref name="ah.boolean"/>
+        </attribute>
+      </element>
+      <element name="text-color">
+        <a:documentation>Whether to output the color of text as 'style="color: color;"'. Corresponds to '-textcolor'. </a:documentation>
+        <attribute name="enable">
+          <a:documentation>If 'false', do not output the text color; if 'true', output the text color in the 'style' attribute</a:documentation>
+          <ref name="ah.boolean"/>
+        </attribute>
+      </element>
+      <element name="output-br">
+        <a:documentation>Whether to output &lt;br&gt; at the end of each paragraph. Corresponds to '-outputbr'. </a:documentation>
+        <attribute name="enable">
+          <a:documentation>If 'false', enclose each paragraph in &lt;p&gt;; if 'true', output &lt;br&gt; after each paragraph</a:documentation>
+          <ref name="ah.boolean"/>
+        </attribute>
+      </element>
+      <element name="style-tag">
+        <a:documentation>Whether to output &lt;style&gt; in &lt;head&gt;. Corresponds to '-defstyle'. </a:documentation>
+        <attribute name="enable">
+          <a:documentation>If 'false', do not output &lt;style&gt;; if 'true', output &lt;style&gt;</a:documentation>
+          <ref name="ah.boolean"/>
+        </attribute>
+      </element>
+      <element name="space-indent">
+        <a:documentation>Whether to convert indents at the beginning of a paragraph into a single fullwidth space. Corresponds to '-spaceindent'. </a:documentation>
+        <attribute name="enable">
+          <a:documentation>If 'false', do not convert indents; if 'true', convert indents</a:documentation>
+          <ref name="ah.boolean"/>
+        </attribute>
+      </element>
+      <element name="fil-images">
+        <a:documentation>Whether to output images in one folder or one folder per HTML document. Corresponds to '-fileimages'. </a:documentation>
+        <attribute name="enable">
+          <a:documentation>If 'false', output images in 'images'; if 'true', output images in 'destination_file_name.images'</a:documentation>
+          <ref name="ah.boolean"/>
+        </attribute>
+      </element>
+      <element name="italic">
+        <a:documentation>What to output for italic text. Corresponds to '-italic'. </a:documentation>
+        <attribute name="out">
+          <a:documentation>When 'n', ignore italics; when 't', output as &lt;i&gt;; when 's', output as '&lt;span style="font-style: italic;"&gt;'</a:documentation>
+          <choice>
+            <value>n</value>
+            <value>t</value>
+            <value>s</value>
+          </choice>
+        </attribute>
+      </element>
+      <element name="underline">
+        <a:documentation>What to output for underlined text. Corresponds to '-underline'. </a:documentation>
+        <attribute name="out">
+          <a:documentation>When 'n', ignore underlines; when 't', output as &lt;u&gt;; when 's', output as '&lt;span style="text-decoration-line: underline;"&gt;'</a:documentation>
+          <choice>
+            <value>n</value>
+            <value>t</value>
+            <value>s</value>
+          </choice>
+        </attribute>
+      </element>
+      <element name="linethrough">
+        <a:documentation>What to output for struck-through text. Corresponds to '-linethrough'. </a:documentation>
+        <attribute name="out">
+          <a:documentation>When 'n', ignore strikethroughs; when 't', output as &lt;del&gt;; when 's', output as '&lt;span style="text-decoration-line: line-through;"&gt;'</a:documentation>
+          <choice>
+            <value>n</value>
+            <value>t</value>
+            <value>s</value>
+          </choice>
+        </attribute>
+      </element>
+      <optional>
+        <element name="encoding">
+          <a:documentation>Character encoding, other than UTF-8, for the ouput. Corresponds to '-encoding'. </a:documentation>
+          <attribute name="encoding">
+            <a:documentation>Encoding to use; e.g., 'Shift_JIS' or 'UTF-16'</a:documentation>
+          </attribute>
+        </element>
+      </optional>
+      <optional>
+        <element name="link-css">
+          <a:documentation>CSS file to use. Corresponds to '-css'. </a:documentation>
+          <ref name="attribute.src"/>
+        </element>
+      </optional>
+      <optional>
+        <element name="link-js">
+          <a:documentation>JavaScript file to use. Corresponds to '-js'. </a:documentation>
+          <ref name="attribute.src"/>
+        </element>
+      </optional>
+      <element name="split">
+        <a:documentation>Whether to split the HTML based on the Word outline level. Corresponds to '-split'. </a:documentation>
+        <attribute name="val">
+          <a:documentation>When '0', do not split; when '1', '2', or '3', split at that outline level</a:documentation>
+          <choice>
+            <value>0</value>
+            <value>1</value>
+            <value>2</value>
+            <value>3</value>
+          </choice>
+        </attribute>
+      </element>
+      <element name="tocout">
+        <a:documentation>Whether to output the table of contents for split HTML files as a separate 'inc-toc.html' file. Corresponds to '-tocout'. </a:documentation>
+        <attribute name="enable">
+          <a:documentation>If 'false', do not generate a separate file; if 'true', generate 'inc-toc.html'</a:documentation>
+          <ref name="ah.boolean"/>
+        </attribute>
+      </element>
+      <optional>
+        <element name="pagenavi">
+          <a:documentation>Whether to output links to previous and next pages and the language to use for the link text. Corresponds to '-pagenavi'. </a:documentation>
+          <attribute name="pagenavi">
+            <a:documentation>English is used for any value other than 'ja' </a:documentation>
+          </attribute>
+        </element>
+      </optional>
+      <element name="lang">
+        <a:documentation>Value of the 'lang' attribute of &lt;html&gt;. Corresponds to '-lang'. </a:documentation>
+        <attribute name="val">
+          <a:documentation>Language code to use; e.g., 'en' for English or 'ja' for Japanese. Otherwise, the language is inferred from the Word document</a:documentation>
+        </attribute>
+      </element>
+    </element>
+  </start>
+</grammar>

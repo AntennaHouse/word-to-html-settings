@@ -1,0 +1,191 @@
+<?xml encoding="UTF-8"?>
+
+<!--
+Schema for Antenna House 'HTML on Word' Setting File.
+
+Copyright 2024 Antenna House, Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<!ENTITY % ah.boolean "false|true">
+
+<!ENTITY % attribute.enable "
+  enable (%ah.boolean;) #REQUIRED">
+
+<!ENTITY % attribute.out "
+  out (n|t|s) #REQUIRED">
+
+<!ENTITY % attribute.src "
+  src CDATA #REQUIRED">
+
+<!ELEMENT word-to-html-settings (enable-XHTML,viewport,enable-endl,
+                                 enable-empty-paragraph,
+                                 enable-non-reference-id,
+                                 enable-image-width,
+                                 enable-heading-strong,
+                                 enable-embed-image,enable-mathml,
+                                 xml-mathml,xml-omath,through-image,
+                                 enable-pstyle,enable-citation,
+                                 text-color,output-br,style-tag,
+                                 space-indent,fil-images,italic,
+                                 underline,linethrough,encoding?,
+                                 link-css?,link-js?,split,tocout,
+                                 pagenavi?,lang)>
+<!ATTLIST word-to-html-settings
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT enable-XHTML EMPTY>
+<!ATTLIST enable-XHTML
+  xmlns CDATA #FIXED ''
+  enable (%ah.boolean;) #REQUIRED>
+
+<!ELEMENT viewport EMPTY>
+<!ATTLIST viewport
+  xmlns CDATA #FIXED ''
+  content CDATA #REQUIRED>
+
+<!ELEMENT enable-endl EMPTY>
+<!ATTLIST enable-endl
+  xmlns CDATA #FIXED ''
+  enable (%ah.boolean;) #REQUIRED>
+
+<!ELEMENT enable-empty-paragraph EMPTY>
+<!ATTLIST enable-empty-paragraph
+  xmlns CDATA #FIXED ''
+  enable (%ah.boolean;) #REQUIRED>
+
+<!ELEMENT enable-non-reference-id EMPTY>
+<!ATTLIST enable-non-reference-id
+  xmlns CDATA #FIXED ''
+  enable (%ah.boolean;) #REQUIRED>
+
+<!ELEMENT enable-image-width EMPTY>
+<!ATTLIST enable-image-width
+  xmlns CDATA #FIXED ''
+  enable (%ah.boolean;) #REQUIRED>
+
+<!ELEMENT enable-heading-strong EMPTY>
+<!ATTLIST enable-heading-strong
+  xmlns CDATA #FIXED ''
+  enable (%ah.boolean;) #REQUIRED>
+
+<!ELEMENT enable-embed-image EMPTY>
+<!ATTLIST enable-embed-image
+  xmlns CDATA #FIXED ''
+  enable (%ah.boolean;) #REQUIRED>
+
+<!ELEMENT enable-mathml EMPTY>
+<!ATTLIST enable-mathml
+  xmlns CDATA #FIXED ''
+  enable (%ah.boolean;) #REQUIRED>
+
+<!ELEMENT xml-mathml EMPTY>
+<!ATTLIST xml-mathml
+  xmlns CDATA #FIXED ''
+  enable (%ah.boolean;) #REQUIRED>
+
+<!ELEMENT xml-omath EMPTY>
+<!ATTLIST xml-omath
+  xmlns CDATA #FIXED ''
+  enable (%ah.boolean;) #REQUIRED>
+
+<!ELEMENT through-image EMPTY>
+<!ATTLIST through-image
+  xmlns CDATA #FIXED ''
+  enable (%ah.boolean;) #REQUIRED>
+
+<!ELEMENT enable-pstyle EMPTY>
+<!ATTLIST enable-pstyle
+  xmlns CDATA #FIXED ''
+  enable (%ah.boolean;) #REQUIRED>
+
+<!ELEMENT enable-citation EMPTY>
+<!ATTLIST enable-citation
+  xmlns CDATA #FIXED ''
+  enable (%ah.boolean;) #REQUIRED>
+
+<!ELEMENT text-color EMPTY>
+<!ATTLIST text-color
+  xmlns CDATA #FIXED ''
+  enable (%ah.boolean;) #REQUIRED>
+
+<!ELEMENT output-br EMPTY>
+<!ATTLIST output-br
+  xmlns CDATA #FIXED ''
+  enable (%ah.boolean;) #REQUIRED>
+
+<!ELEMENT style-tag EMPTY>
+<!ATTLIST style-tag
+  xmlns CDATA #FIXED ''
+  enable (%ah.boolean;) #REQUIRED>
+
+<!ELEMENT space-indent EMPTY>
+<!ATTLIST space-indent
+  xmlns CDATA #FIXED ''
+  enable (%ah.boolean;) #REQUIRED>
+
+<!ELEMENT fil-images EMPTY>
+<!ATTLIST fil-images
+  xmlns CDATA #FIXED ''
+  enable (%ah.boolean;) #REQUIRED>
+
+<!ELEMENT italic EMPTY>
+<!ATTLIST italic
+  xmlns CDATA #FIXED ''
+  out (n|t|s) #REQUIRED>
+
+<!ELEMENT underline EMPTY>
+<!ATTLIST underline
+  xmlns CDATA #FIXED ''
+  out (n|t|s) #REQUIRED>
+
+<!ELEMENT linethrough EMPTY>
+<!ATTLIST linethrough
+  xmlns CDATA #FIXED ''
+  out (n|t|s) #REQUIRED>
+
+<!ELEMENT encoding EMPTY>
+<!ATTLIST encoding
+  xmlns CDATA #FIXED ''
+  encoding CDATA #REQUIRED>
+
+<!ELEMENT link-css EMPTY>
+<!ATTLIST link-css
+  xmlns CDATA #FIXED ''
+  %attribute.src;>
+
+<!ELEMENT link-js EMPTY>
+<!ATTLIST link-js
+  xmlns CDATA #FIXED ''
+  %attribute.src;>
+
+<!ELEMENT split EMPTY>
+<!ATTLIST split
+  xmlns CDATA #FIXED ''
+  val (0|1|2|3) #REQUIRED>
+
+<!ELEMENT tocout EMPTY>
+<!ATTLIST tocout
+  xmlns CDATA #FIXED ''
+  enable (%ah.boolean;) #REQUIRED>
+
+<!ELEMENT pagenavi EMPTY>
+<!ATTLIST pagenavi
+  xmlns CDATA #FIXED ''
+  pagenavi CDATA #REQUIRED>
+
+<!ELEMENT lang EMPTY>
+<!ATTLIST lang
+  xmlns CDATA #FIXED ''
+  val CDATA #REQUIRED>
